@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Список Футболок для мужчин</h1>
+{% for item in news%}
+{% if item.pol == 'man' and item.types == 'Футболки'%}
+    <div class="col-md6 border rounded">
+        <h2>{{item.title}}</h2>
+        <div>
+            {{item.content}}
+        </div>
+        <div>
+            Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
+        </div>
+        <div>
+            тип одежды - {{item.types}}
+        </div>
+        <div>
+            <img src="{{ url_for("static", filename=item.image_file) }}">
+        </div>
+        {% if current_user.is_authenticated and current_user == item.user %}
+        <div>
+            <a href="/news/{{ item.id }}" class="btn btn-warning">
+                Изменить
+            </a>
+            <a href="/news_delete/{{ item.id }}" class="btn btn-danger">
+                Удалить
+            </a>
+        </div>
+        {% endif %}
+        {% if current_user.is_authenticated and current_user != item.user %}
+        <div>
+            <a href="/buy_clother" class="btn btn-warning">
+                Оформить заказ
+            </a>
+        </div>
+        {% endif %}
+    </div>
+{% endif %}
+{% endfor %}
+{% endblock %}

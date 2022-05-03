@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>История Покупок</h1>
+{% for item in buy%}
+    {% if item.user == current_user %}
+        <div class="col-md6 border rounded">
+            <h2>Ф.И.О получателя - {{item.title}}</h2>
+            <div>
+                Адресс - {{item.address}}
+            </div>
+            <div>
+                размер - {{item.size}}
+            </div>
+        </div>
+     {% endif %}
+{% endfor %}
+{% endblock %}
